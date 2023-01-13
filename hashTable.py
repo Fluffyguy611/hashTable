@@ -22,7 +22,7 @@ class HashTable:
         while self.table[hash_value] is not None:
             if i >= self.size*2:
 
-                raise OverflowError("Hashowanie trwa za długo", i, self.filled)
+                raise OverflowError("Hashing is taking too long", i, self.filled)
 
             # Quadratic probing to find the next available slot
             hash_value = (hash_value + i**2) % self.size
