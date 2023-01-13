@@ -20,6 +20,10 @@ class HashTable:
         hash_value = self.hashFunction(key)
         i = 1
         while self.table[hash_value] is not None:
+            if i >= self.size*2:
+
+                raise OverflowError("Hashowanie trwa za długo", i, self.filled)
+
             # Quadratic probing to find the next available slot
             hash_value = (hash_value + i**2) % self.size
             i += 1
@@ -47,7 +51,7 @@ class HashTable:
         while True:
             if self.table[hash_value] is not None:
                 if self.table[hash_value][0] == key:
-                    self.table[hash_value] = "DEL"
+                    self.table[hash_value] = None
                     self.order.remove(hash_value)
                     self.filled -= 1
                     return
@@ -56,17 +60,18 @@ class HashTable:
             i += 1
 
     def ifFullDelete(self):
-        if self.filled / self.size >= 0.80:
+        if (self.filled/self.size) >= 0.80:
             return True
         return False
 
     def deleteEverySecond(self):
-        DEL = 0
         # Delete every second key from the hash table
-        for i, slot in enumerate(self.order):
-            if (self.table[slot] is not None and i % 2 == 1:
+        lst = self.order.copy()
+        DEL  = 0
+        for i, slot in enumerate(lst):
+            if self.table[slot] is not None and i % 2 == 1:
                 delete = self.table[slot][0]
-                self.delete(delete)
                 DEL += 1
-        self.DEL = DEL
+                self.delete(delete)
 
+        self.DEL = DEL
