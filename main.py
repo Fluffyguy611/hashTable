@@ -17,6 +17,7 @@ if __name__ == '__main__':
     start_time = time.time()
     for v, k in KVtable:
         ht.insert(k, int(v))
+    print("Deleted objects per deletion: ", ht.DEL)
     print("--- %s seconds --- Hashtable 1000" % (time.time() - start_time))
 
     start_time = time.time()
