@@ -18,7 +18,7 @@ class HashTable:
             self.deleteEverySecond()
         hash_value = self.hashFunction(key)
         i = 1
-        while self.table[hash_value] is not None:
+        while self.table[hash_value] is not None or self.table[hash_value] != "DEL":
             # Quadratic probing to find the next available slot
             hash_value = (hash_value + i**2) % self.size
             i += 1
@@ -31,7 +31,7 @@ class HashTable:
         # Search for the given key in the hash table
         hash_value = self.hashFunction(key)
         i = 1
-        while self.table[hash_value] is not None:
+        while self.table[hash_value] is not None or self.table[hash_value] != "DEL":
             if self.table[hash_value][0] == key:
                 return self.table[hash_value][1]
             # Quadratic probing to find the next slot to check
@@ -44,9 +44,9 @@ class HashTable:
         hash_value = self.hashFunction(key)
         i = 1
         while True:
-            if self.table[hash_value] is not None:
+            if self.table[hash_value] is not None or self.table[hash_value] != "DEL":
                 if self.table[hash_value][0] == key:
-                    self.table[hash_value] = None
+                    self.table[hash_value] = "DEL"
                     self.order.remove(hash_value)
                     self.filled -= 1
                     return
@@ -62,7 +62,7 @@ class HashTable:
     def deleteEverySecond(self):
         # Delete every second key from the hash table
         for i, slot in enumerate(self.order):
-            if self.table[slot] is not None and i % 2 == 1:
+            if (self.table[slot] is not None or self.table[hash_value] != "DEL") and i % 2 == 1:
                 delete = self.table[slot][0]
                 self.delete(delete)
 
