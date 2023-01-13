@@ -5,6 +5,7 @@ class HashTable:
         self.filled = 0
         self.table = [None] * self.size
         self.order = []
+        self.DEL = 0
 
     def hashFunction(self, word):
         hash_value = len(word)
@@ -18,7 +19,7 @@ class HashTable:
             self.deleteEverySecond()
         hash_value = self.hashFunction(key)
         i = 1
-        while self.table[hash_value] is not None or self.table[hash_value] != "DEL":
+        while self.table[hash_value] is not None:
             # Quadratic probing to find the next available slot
             hash_value = (hash_value + i**2) % self.size
             i += 1
@@ -31,7 +32,7 @@ class HashTable:
         # Search for the given key in the hash table
         hash_value = self.hashFunction(key)
         i = 1
-        while self.table[hash_value] is not None or self.table[hash_value] != "DEL":
+        while self.table[hash_value] is not None:
             if self.table[hash_value][0] == key:
                 return self.table[hash_value][1]
             # Quadratic probing to find the next slot to check
@@ -44,7 +45,7 @@ class HashTable:
         hash_value = self.hashFunction(key)
         i = 1
         while True:
-            if self.table[hash_value] is not None or self.table[hash_value] != "DEL":
+            if self.table[hash_value] is not None:
                 if self.table[hash_value][0] == key:
                     self.table[hash_value] = "DEL"
                     self.order.remove(hash_value)
@@ -60,10 +61,12 @@ class HashTable:
         return False
 
     def deleteEverySecond(self):
+        DEL = 0
         # Delete every second key from the hash table
         for i, slot in enumerate(self.order):
-            if (self.table[slot] is not None or self.table[hash_value] != "DEL") and i % 2 == 1:
+            if (self.table[slot] is not None and i % 2 == 1:
                 delete = self.table[slot][0]
                 self.delete(delete)
+                DEL += 1
+        self.DEL = DEL
 
-#        print(len([i for i in self.table if i is None]))
