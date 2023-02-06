@@ -22,13 +22,4 @@ if __name__ == '__main__':
     print("Positions with DEL: ", hq.table.count("DEL"))
     print("Lastnames in table ", hq.table)
     print("Length of nazwiska.txt: ", len(Lines))
-
-
-
-
-
-    for v, k in KVtable:
-        hq.insert(k, int(v))
-    print("--- %s seconds --- Hashtable 50" % (time.time() - start_time))
-
-
+    
